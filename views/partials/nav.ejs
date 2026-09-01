@@ -1,0 +1,17 @@
+<nav class="sticky top-0 z-50 border-b border-zinc-200/70 bg-[#fcf9f5]/80 backdrop-blur-xl">
+  <div class="mx-auto flex max-w-[1280px] items-center justify-between px-6 py-4 md:px-8">
+    <div class="flex items-center gap-3">
+      <div class="grid h-8 w-8 place-items-center rounded-lg bg-zinc-900 text-white">
+        <span class="font-mono text-xs font-bold">TH</span>
+      </div>
+      <span class="font-sans text-sm font-semibold tracking-tight">Theme Showcast</span>
+      <span class="hidden rounded-full bg-zinc-900 px-2 py-0.5 font-mono text-[10px] text-white md:inline">PREVIEWER</span>
+    </div>
+    <div class="hidden items-center gap-6 md:flex">
+      <% links.forEach(function (link, i) { %>
+        <a href="<%= link.href %>" class="font-mono text-xs <%= i === 0 ? 'text-zinc-900 underline decoration-zinc-300 underline-offset-4' : 'text-zinc-500 hover:text-zinc-900' %>"><%= link.label %></a>
+      <% }); %>
+    </div>
+    <span id="nav-count" class="font-mono text-xs text-zinc-500"><%= total %> themes</span>
+  </div>
+</nav>
