@@ -1,0 +1,25 @@
+<li
+  id="theme-<%= theme.id %>"
+  role="option"
+  aria-selected="<%= isActive ? 'true' : 'false' %>"
+  data-id="<%= theme.id %>"
+  tabindex="-1"
+  class="flex w-full cursor-pointer items-center gap-3 rounded-2xl border p-3 text-left transition <%= isActive ? 'border-zinc-900 bg-zinc-900 text-white shadow-md' : 'border-zinc-200 bg-white hover:bg-zinc-50' %>"
+>
+  <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 <%= isActive ? 'border-white bg-white text-zinc-900' : 'border-zinc-300 bg-white text-transparent' %>">
+    <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+    </svg>
+  </span>
+  <span class="min-w-0 flex-1">
+    <span class="block truncate font-sans text-sm font-semibold <%= isActive ? 'text-white' : 'text-zinc-900' %>">
+      <%= String(number).padStart(2, '0') %> — <%= theme.name %>
+    </span>
+    <span class="block truncate font-mono text-[11px] <%= isActive ? 'text-zinc-400' : 'text-zinc-500' %>">
+      <%= theme.category %>
+    </span>
+  </span>
+  <span class="font-mono text-[11px] <%= isActive ? 'text-white/60' : 'text-zinc-400' %>" aria-hidden="true">
+    <%= isActive ? '●' : '○' %>
+  </span>
+</li>

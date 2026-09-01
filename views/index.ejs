@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <%- include('partials/head') %>
+  </head>
+  <body class="min-h-screen bg-[#fcf9f5] text-zinc-900 antialiased selection:bg-zinc-900 selection:text-white">
+    <%- include('partials/nav', { links: links, total: total }) %>
+    <%- include('partials/hero') %>
+
+    <main id="previewer" class="mx-auto grid max-w-[1280px] grid-cols-1 gap-8 px-6 py-8 md:grid-cols-12 md:px-8">
+      <%- include('partials/preview', { active: active, counters: counters, fallbackImage: fallbackImage }) %>
+      <%- include('partials/sidebar', { active: active, counters: counters, rowsHtml: rowsHtml, pillsHtml: pillsHtml }) %>
+    </main>
+
+    <script id="__THEMES__" type="application/json" nonce="<%= nonce %>"><%- stateJson %></script>
+    <script nonce="<%= nonce %>"><%- templatesJs %></script>
+    <script type="module" src="/js/main.js"></script>
+  </body>
+</html>

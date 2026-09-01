@@ -1,0 +1,9 @@
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Theme Previewer</title>
+<% if (fonts.stylesheet) { %>
+<% fonts.styleHosts.forEach(function (host) { %><link rel="preconnect" href="<%= host %>" />
+<% }); %><% fonts.fontHosts.forEach(function (host) { %><link rel="preconnect" href="<%= host %>" crossorigin />
+<% }); %><link href="<%= fonts.stylesheet %>" rel="stylesheet" />
+<% } %>
+<link href="/css/app.css" rel="stylesheet" />
