@@ -29,6 +29,8 @@ export function createRenderer({ root, templates = DEFAULT_TEMPLATES, fallbackIm
     navCount: root.getElementById("nav-count"),
     browserCount: root.getElementById("browser-count"),
     browserUrl: root.getElementById("browser-url"),
+    browserLink: root.getElementById("browser-url-link"),
+    browserIcon: root.getElementById("browser-url-icon"),
     image: root.getElementById("preview-image"),
     label: root.getElementById("preview-label"),
     category: root.getElementById("preview-cat"),
@@ -63,9 +65,31 @@ export function createRenderer({ root, templates = DEFAULT_TEMPLATES, fallbackIm
    */
   function paintPreview(active) {
     els.browserUrl.textContent = active ? active.url : "";
+    paintAddressLink(active);
     els.category.textContent = active ? active.category : "";
     els.image.setAttribute("src", active ? active.image || fallbackImage : fallbackImage);
     els.image.setAttribute("alt", active ? active.name : "");
+  }
+
+  /**
+   * Points the address bar at the demo site, or unlinks it when there is none.
+   */
+  function paintAddressLink(active) {
+    const url = active ? active.url : "";
+
+    if (url) {
+      els.browserLink.setAttribute("href", url);
+      els.browserLink.setAttribute("target", "_blank");
+      els.browserLink.setAttribute("rel", "noopener noreferrer");
+      els.browserLink.setAttribute("aria-label", `Open the ${active.name} demo in a new tab`);
+    } else {
+      els.browserLink.removeAttribute("href");
+      els.browserLink.removeAttribute("target");
+      els.browserLink.removeAttribute("rel");
+      els.browserLink.removeAttribute("aria-label");
+    }
+
+    els.browserIcon.classList.toggle("hidden", !url);
   }
 
   /**

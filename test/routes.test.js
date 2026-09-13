@@ -49,6 +49,26 @@ describe("GET /", () => {
     expect(res.text).toContain('alt="Aurora"');
   });
 
+  it("links the address bar to the demo site, opening it in a new tab", async () => {
+    const { app } = appWith(ok);
+    const res = await request(app).get("/").expect(200);
+    const link = new JSDOM(res.text).window.document.getElementById("browser-url-link");
+    expect(link.tagName).toBe("A");
+    expect(link.getAttribute("href")).toBe("https://aurora.test");
+    expect(link.getAttribute("target")).toBe("_blank");
+    expect(link.getAttribute("rel")).toBe("noopener noreferrer");
+    expect(link.getAttribute("aria-label")).toContain("Aurora");
+  });
+
+  it("leaves the address bar unlinked when the theme has no demo site", async () => {
+    const themes = [{ id: "basalt", name: "Basalt", category: "Portfolio", image: "", url: "" }];
+    const { app } = appWith(async () => ({ value: { themes, total: 1, pages: 1 }, ttlMs: 1000 }));
+    const res = await request(app).get("/").expect(200);
+    const link = new JSDOM(res.text).window.document.getElementById("browser-url-link");
+    expect(link.hasAttribute("href")).toBe(false);
+    expect(link.querySelector("#browser-url-icon").getAttribute("class")).toContain("hidden");
+  });
+
   it("renders a category pill per category plus All", async () => {
     const { app } = appWith(ok);
     const res = await request(app).get("/");

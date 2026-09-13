@@ -79,6 +79,13 @@ describe("keyboard interaction", () => {
     expect(activeId()).toBe("basalt");
   });
 
+  it("does not double open the demo when Enter is pressed on the address bar link", () => {
+    const opened = vi.fn();
+    window.open = opened;
+    key(el("browser-url-link"), "Enter");
+    expect(opened).not.toHaveBeenCalled();
+  });
+
   it("leaves arrow keys alone outside the previewer", () => {
     key(document.body, "ArrowDown");
     expect(activeId()).toBe("aurora");

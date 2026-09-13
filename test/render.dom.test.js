@@ -95,6 +95,32 @@ describe("selection", () => {
     expect(document.getElementById("preview-label").textContent).toBe("02 — Basalt");
   });
 
+  it("repoints the address bar link when the theme changes", () => {
+    vi.useFakeTimers();
+    const prev = store.getState();
+    store.dispatch({ type: "SELECT", id: "basalt" });
+    render(store.getState(), prev);
+    vi.runAllTimers();
+    vi.useRealTimers();
+    const link = document.getElementById("browser-url-link");
+    expect(link.getAttribute("href")).toBe("https://basalt.test");
+    expect(link.getAttribute("aria-label")).toContain("Basalt");
+    expect(document.getElementById("browser-url-icon").classList.contains("hidden")).toBe(false);
+  });
+
+  it("unlinks the address bar for a theme with no demo site", () => {
+    vi.useFakeTimers();
+    const prev = store.getState();
+    store.dispatch({ type: "SELECT", id: "cinder" });
+    render(store.getState(), prev);
+    vi.runAllTimers();
+    vi.useRealTimers();
+    const link = document.getElementById("browser-url-link");
+    expect(link.hasAttribute("href")).toBe(false);
+    expect(link.hasAttribute("aria-label")).toBe(false);
+    expect(document.getElementById("browser-url-icon").classList.contains("hidden")).toBe(true);
+  });
+
   it("falls back to the placeholder image when a theme has none", () => {
     vi.useFakeTimers();
     const prev = store.getState();
